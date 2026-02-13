@@ -32,6 +32,7 @@ export default {
             const token = await obtenerTokenFachada(this.usuario, this.contraseña);
             this.token = token.accessToken;
             this.rol = token.role;
+            localStorage.setItem('token', this.token);
         }
     }
 
