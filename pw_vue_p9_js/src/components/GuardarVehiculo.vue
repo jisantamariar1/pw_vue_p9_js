@@ -11,9 +11,9 @@
         <div class="fechasDe">
 
             <label for="fechaFabricacion">Fecha de Fabricación:</label>
-            <input type="date" id="fechaFabricacion" v-model="fechaFabricacion">
+            <input type="text" id="fechaFabricacion" v-model="fechafabricacion">
             <label for="fechaMatricula">Fecha de Matricula:</label>
-            <input type="date" id="fechaMatricula" v-model="fechaMatricula">
+            <input type="text" id="fechaMatricula" v-model="fechamatriculacion">
         </div>
         <button @click="guardarVehiculo">Guardar</button>
     </div>
@@ -22,19 +22,31 @@
 </template>
 
 <script>
+import { guardarVehiculoFachada } from '../clients/ApiVehiculoClient.js';
 export default {
     data() {
         return {
             token: null,
-            marca: '',
-            modelo: '',
-            chasis: '',
-            fechaFabricacion: '',
-            fechaMatricula: ''
+            marca:'',
+            modelo:'',
+            chasis:'',
+            fechafabricacion:'',
+            fechamatriculacion:''
         }
     },
     methods:{
-        
+        async guardarVehiculo() {
+            const vehiculo = {
+                marca: this.marca,
+                modelo: this.modelo,
+                chasis: this.chasis,
+                fechafabricacion: this.fechafabricacion,
+                fechamatriculacion: this.fechamatriculacion,
+            }
+            await guardarVehiculoFachada(vehiculo);
+            this.token = localStorage.getItem('token');
+        }
+
     }
 
 }
